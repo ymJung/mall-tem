@@ -1,0 +1,37 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+  <h1>Shop</h1>
+  
+  <div class="categories">
+    <h2>Categories</h2>
+    <ul>
+      {% for c in categories %}
+        <li{% if category.slug == c.slug %} class="selected"{% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="products">
+    {% if category %}
+      <h2>{{ category.name }}</h2>
+    {% endif %}
+
+    {% if products %}
+      <ul>
+        {% for p in products %}
+          <li>
+            <a href="{{ p.get_absolute_url }}">
+              <img src="{{ p.image.url }}" alt="{{ p.name }}">
+              <p>{{ p.name }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No products found.</p>
+    {% endif %}
+  </div>
+{% endblock %}
